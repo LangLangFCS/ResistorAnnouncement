@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html class="dark">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>公告</title>
+<style>
+  html,body{margin:0;padding:0;min-height:100%;}
+  body{
+    font-family:'Segoe UI','Microsoft YaHei UI','Microsoft YaHei',sans-serif;
+    letter-spacing:.2px;
+    transition:background-color .18s ease,color .18s ease;
+  }
+  html.dark body{background:#0B0D0F;color:#9AAAB4;}
+  html.light body{background:#F4F6F8;color:#333D47;}
+
+  #wrap{width:100%;max-width:820px;margin:0 auto;padding:34px 24px 56px;}
+
+  #head{position:relative;height:38px;}
+  #ttl{font-size:19px;font-weight:600;line-height:38px;letter-spacing:.5px;}
+  html.dark #ttl{color:#E6EDF2;}
+  html.light #ttl{color:#1E2731;}
+  #ttl .ver{
+    display:inline-block;margin-left:10px;padding:1px 8px;border-radius:9px;
+    font-size:11px;font-weight:600;line-height:17px;vertical-align:4px;
+    color:#3D9BE9;border:1px solid #3D9BE9;
+  }
+  #thm{
+    position:absolute;right:0;top:5px;height:28px;line-height:26px;
+    padding:0 14px;border-radius:14px;font-size:12px;cursor:pointer;
+    border:1px solid #3D9BE9;color:#3D9BE9;
+    transition:background-color .16s ease,color .16s ease;
+    -ms-user-select:none;user-select:none;
+  }
+  #thm:hover{background:#3D9BE9;color:#fff;}
+
+  #sub{font-size:12px;line-height:20px;margin-top:2px;}
+  html.dark #sub{color:#7A828E;}
+  html.light #sub{color:#8A8F98;}
+
+  .rule{height:1px;margin:22px 0 0;}
+  html.dark .rule{background:#2A2E36;}
+  html.light .rule{background:#DDE2E7;}
+
+  .card{
+    position:relative;margin-top:20px;border-radius:12px;padding:22px 24px;
+    transition:background-color .18s ease,border-color .18s ease;
+    animation:rkin .34s ease both;
+  }
+  html.dark .card{background:#14171B;border:1px solid #2A2E36;}
+  html.light .card{background:#FFFFFF;border:1px solid #DDE2E7;}
+
+  #meta{font-size:11px;line-height:18px;margin-bottom:14px;}
+  html.dark #meta{color:#5E6873;}
+  html.light #meta{color:#9AA3AD;}
+  #meta b{font-weight:600;color:#3D9BE9;margin-right:8px;}
+
+  p{font-size:14px;line-height:25px;margin:0 0 14px;}
+  html.dark p{color:#B4C0C9;}
+  html.light p{color:#3A444F;}
+  p:last-child{margin-bottom:0;}
+
+  .hi{font-size:20px;line-height:30px;font-weight:600;letter-spacing:1px;margin:2px 0 2px;}
+  html.dark .hi{color:#E6EDF2;}
+  html.light .hi{color:#1E2731;}
+
+  .quote{
+    margin:16px 0 0;padding:13px 16px;border-radius:8px;
+    border-left:3px solid #3D9BE9;
+    font-size:13px;line-height:22px;
+  }
+  html.dark .quote{background:#171E25;color:#8E9AA5;}
+  html.light .quote{background:#F2F7FC;color:#5C6874;}
+
+  @keyframes rkin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div id="wrap">
+
+  <div id="head">
+    <div id="ttl">公告<span class="ver">通知</span></div>
+    <div id="thm" onclick="toggleTheme()">深色</div>
+  </div>
+  <div id="sub">Resistor · 公告栏</div>
+  <div class="rule"></div>
+
+  <div class="card">
+    <div id="meta"><b id="today">----</b>Resistor · 公告栏</div>
+    <p class="hi">你好</p>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var btn = document.getElementById('thm');
+  function apply(light) {
+    root.className = light ? 'light' : 'dark';
+    btn.innerHTML = light ? '浅色' : '深色';
+  }
+  var saved = null;
+  try { saved = localStorage.getItem('res_notice_theme'); } catch (e) {}
+  apply(saved === 'light');
+
+  // 日期跟随系统时间
+  function p2(n) { return n < 10 ? '0' + n : '' + n; }
+  var now = new Date();
+  var wk = '日一二三四五六'.charAt(now.getDay());
+  document.getElementById('today').innerHTML =
+    now.getFullYear() + '-' + p2(now.getMonth() + 1) + '-' + p2(now.getDate()) + ' 星期' + wk;
+  window.toggleTheme = function () {
+    var light = root.className !== 'light';
+    apply(light);
+    try { localStorage.setItem('res_notice_theme', light ? 'light' : 'dark'); } catch (e) {}
+  };
+})();
+</script>
+</body>
+</html>
